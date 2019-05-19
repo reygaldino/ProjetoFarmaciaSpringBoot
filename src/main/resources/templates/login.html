@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://thymeleaf.org"  
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		lang="pt-br">
+    <head>
+        <title>Farmacia XYZ</title>
+        <meta charset="UTF-8" /> 
+        <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>  
+        <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>   
+    </head>
+    <body>
+        <div class="card card-container">
+            <form action="/login" class="form-signin" id="frmLogin" method="POST" name="frmLogin">
+                <input name="name" type="hidden"  />            
+                <div class="text-center logo">
+                    <div>
+                        <img src="img/logo.png" />
+                    </div>
+                    <div>
+                        <span>Portal Farmacia XYZ</span>
+                    </div>
+                </div>
+                    <p id="profile-name" class="profile-name-card"></p>
+                <div class="form-signin">
+                    <label class="Log" for="username"><b>Login</b></label>
+                    <div class="form-group">
+                        <input autofocus="autofocus" class="form-control" data-val="true" data-val-required="Favor informar a Login" id="username" name="username" placeholder="Informe o Login" type="text" value="" />
+                        <i class="fa fa-user fa-lg"></i>
+                    </div>
+                    <label class="Log" for="Senha"><b>Senha</b></label>
+                    <div class="form-group">
+                        <input class="form-control" data-val="true" data-val-required="Favor informar a senha" id="password"  name="password" placeholder="password" type="password" value="" />
+                        <i class="fa fa-lock fa-lg"></i>
+                    </div>
+                    <div class="col-md-12" style="color: red;">  
+                    </div>
+                    <div class="col-md-12 Article-last">
+                        <div class="validation-summary-valid" data-valmsg-summary="true">
+                            <ul>
+                                <li style="display:none"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn-lg btn-success" type="submit">Entrar</button>
+                </div>
+            </form> 
+        </div><!-- /card-container -->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/javascript.js"></script>   
+    </body>
+</html>
