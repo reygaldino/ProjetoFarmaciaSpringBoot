@@ -53,10 +53,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Medicamentos</h6>
-          <a class="dropdown-item" href="">Cadastrar</a>
-          <a class="dropdown-item" href="register.html">Buscar</a>
-          <a class="dropdown-item" href="forgot-password.html">Alterar</a>
-          <a class="dropdown-item" href="forgot-password.html">Deletar</a>
+          <a class="dropdown-item" th:href="@{/medicamentoCadastrar}">Cadastrar</a>
+          <a class="dropdown-item" th:href="@{/medicamentoBuscar}">Buscar</a>
+          <a class="dropdown-item" th:href="@{/medicamentoAlterar}">Alterar</a>
+          <a class="dropdown-item" th:href="@{/medicamentoExcluir}">Deletar</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -66,10 +66,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Funcionarios</h6>
-          <a class="dropdown-item" href="">Cadastrar</a>
-          <a class="dropdown-item" href="@{/funcionarioBuscar}">Buscar</a>
-          <a class="dropdown-item" href="forgot-password.html">Alterar</a>
-          <a class="dropdown-item" href="forgot-password.html">Deletar</a>
+          <a class="dropdown-item" th:href="@{/funcionarioCadastrar}">Cadastrar</a>
+          <a class="dropdown-item" th:href="@{/funcionarioBuscar}">Buscar</a>
+          <a class="dropdown-item" th:href="@{/funcionarioAlterar}">Alterar</a>
+          <a class="dropdown-item" th:href="@{/funcionarioExcluir}">Deletar</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -79,14 +79,13 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Clientes</h6>
-          <a class="dropdown-item" href="">Cadastrar</a>
-          <a class="dropdown-item" href="register.html">Buscar</a>
-          <a class="dropdown-item" href="forgot-password.html">Alterar</a>
-          <a class="dropdown-item" href="forgot-password.html">Deletar</a>
+          <a class="dropdown-item" href="@{/clienteCadastrar}">Cadastrar</a>
+          <a class="dropdown-item" href="@{/clienteBuscar}">Buscar</a>
+          <a class="dropdown-item" href="@{/clienteAlterar}">Alterar</a>
+          <a class="dropdown-item" href="@{/clienteExcluir}">Deletar</a>
         </div>
       </li>
     </ul>
-
     <div id="content-wrapper">
       <div class="container-fluid">
         <ol class="breadcrumb">
@@ -99,43 +98,53 @@
           <div class="card-header">
             <i class="fas fa-table"></i>
             Funcionarios</div>
+            <div th:if="${message != null}">
+           		<div class="alert alert-success alert-dismissible fade show" role="alert">
+           			<span th:text="${message}">message</span>
+       			 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+					</button>
+           		</div>
+           </div>
           <div class="card-body">
-            <form method="post" th:attr="action=@{/funcionarioCadastrar}">
+            <form th:method="post" th:object="${user}">
               <div class="form-row">
+              	<input id="id" type="hidden" th:field="*{id}" 	/>
                 <div class="form-group col-md-6">
-                  <label for="name">Login</label>
-                  <input type="text" class="form-control" id="username" name="username" placeholder="Login de usuário">
+                  <label for="username">Login</label>
+                  <input type="text" class="form-control" id="username" name="username" th:field="*{username}" placeholder="Login de usuário"/>
+                  <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="password">Senha</label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
+                  <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="Senha"/>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="name">Nome</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Nome">
+                  <input type="text" class="form-control" id="name" name="name"  th:field="*{name}" placeholder="Nome">
                 </div> 
                 <div class="form-group col-md-6">
                   <label for="inputCity">Salario</label>
-                  <input type="text" class="form-control" id="salary" name="salary"  placeholder="Ex... 998.00" > 
+                  <input type="text" class="form-control" id="salary" name="salary" th:field="*{salary}"  placeholder="Ex... 998.00" /> 
                 </div> 
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputAddress2">CPF</label>
-                  <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
+                  <input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}" placeholder="CPF"/>
                 </div>
                 <!--
                 <div class="form-group col-md-6">
                   <label th:for="namerole">Perfil</label>
-                  <input type="text" class="form-control" id="namerole" name="namerole" placeholder="admin,user">
+                  <input type="text" class="form-control" id="namerole" name="namerole" placeholder="admin,user"/>
                 </div>
                 -->
                 
               </div>
               <button type="submit" class="btn btn-primary">Cadastrar</button>
-              <button type="submit" class="btn btn-danger">Cancelar</button>
+              <a th:href="@{/funcionarioCadastrar}" class="btn btn-danger">Cancelar</a>
             </form>
           </div>
           <div class="card-footer small text-muted">Atualizado Hoje 03/05</div>
