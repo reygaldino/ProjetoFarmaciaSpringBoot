@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="card card-container">
-            <form action="/login" class="form-signin" id="frmLogin" method="POST" name="frmLogin">
+            <form action="login.html" th:action="@{/login}" class="form-signin" id="frmLogin" method="POST" name="frmLogin">
                 <input name="name" type="hidden"  />            
                 <div class="text-center logo">
                     <div>
@@ -44,6 +44,10 @@
                     <button class="btn btn-lg btn-success" type="submit">Entrar</button>
                 </div>		
             </form> 
+            <!-- 
+            <div th:if="${hasError.error}">
+            <h3 class="label label-danger">Usuário/senha inválido</h3>
+        	</div>-->
         </div><!-- /card-container -->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
