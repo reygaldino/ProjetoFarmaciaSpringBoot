@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,6 +21,7 @@ import com.farmacia.service.UserService;
 import com.farmacia.validator.UserValidator;
 
 @Controller
+@RequestMapping("/funcionario")
 public class UserController {
 
 	@Autowired
@@ -37,49 +37,48 @@ public class UserController {
 	@GetMapping("/buscar")
     public ModelAndView listar(ModelMap model) {
         model.addAttribute("user", userRepository.findAll());
-        return new ModelAndView("funcionarioBuscar", model);
+        return new ModelAndView("funcionario/funcionarioBuscar", model);
     }
 	
 	// pré cadastra
 	@GetMapping("/novo")
     public String funcionarioCadastrar(@ModelAttribute("user") User user) {
-        return "/funcionarioCadastrar";
+        return "funcionario/funcionarioCadastrar";
     }
 	// Cadastrar
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute("user") User user, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
-            return "/funcionarioCadastrar";
+            return "funcionario/funcionarioCadastrar";
         }
- 
         userService.save(user);
         attr.addFlashAttribute("message", "Funcionario salvo com sucesso.");
-        return "redirect:/novo";
+        return "redirect:/funcionario/novo";
     }
     
     @GetMapping("/excluir")
     public ModelAndView buscar(ModelMap model) {
         model.addAttribute("user", userRepository.findAll());
-        return new ModelAndView("funcionarioExcluir", model);
+        return new ModelAndView("funcionario/funcionarioExcluir", model);
     }
     
     @GetMapping("/excluir/{id}")
  	public String delete(@PathVariable("id") Long id, RedirectAttributes attr) {
  		userRepository.deleteById(id);
  		attr.addFlashAttribute("message", "Usuario removido com sucesso");
- 		return "redirect:/listar";
+ 		return "redirect:/funcionario/excluir";
  	}
     
     @GetMapping("/alterar")
     public String lista(Model model) {
         model.addAttribute("user", userRepository.findAll());
-        return "/funcionarioAlterar";
+        return "/funcionario/funcionarioAlterar";
     }
     
     @GetMapping("/alterar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
     	model.addAttribute("user" , userService.findById(id));
-		return "funcionarioCadastrar";
+		return "funcionario/funcionarioCadastrar";
     }
 	
 }

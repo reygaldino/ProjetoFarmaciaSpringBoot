@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="card card-container">
-            <form action="login.html" th:action="@{/login}" class="form-signin" id="frmLogin" method="POST" name="frmLogin">
+            <form  th:action="@{/login}" class="form-signin" id="frmLogin" method="POST" name="frmLogin">
                 <input name="name" type="hidden"  />            
                 <div class="text-center logo">
                     <div>
@@ -42,12 +42,15 @@
                         </div>
                     </div>
                     <button class="btn btn-lg btn-success" type="submit">Entrar</button>
-                </div>		
+                </div>
+                <div th:if="${message != null}" class="alert alert-danger" role="alert">
+ 					<span th:text="${message}"></span>
+       			 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>	
+				<div class="h-captcha" data-sitekey="156f650e-b2f9-4d86-acbf-df9f6d5afb8a"></div>	
             </form> 
-            <!-- 
-            <div th:if="${hasError.error}">
-            <h3 class="label label-danger">Usuário/senha inválido</h3>
-        	</div>-->
         </div><!-- /card-container -->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

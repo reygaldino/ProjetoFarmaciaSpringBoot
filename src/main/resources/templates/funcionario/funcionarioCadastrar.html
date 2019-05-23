@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="Projeto Farmacia" content="">
+  <meta name="Renato Galdino" content="">
   <title>Farmacia XYZ</title>
   <link href="vendor/fontawesome-free/css/all.min.css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
   <link href="vendor/datatables/dataTables.bootstrap4.css" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
@@ -13,7 +13,7 @@
 </head>
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand mr-1" th:href="@{/index}">Farmacia XYZ</a>
+    <a class="navbar-brand mr-1" href="index.html" th:href="@{/index}">Farmacia XYZ</a>
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" >
       <i class="fas fa-bars"></i>
     </button>
@@ -60,7 +60,7 @@
           <i class="fas fa-fw fa-folder"></i>
           <span>Funcionarios</span>
         </a>
-         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Funcionarios</h6>
           <a class="dropdown-item" href="funcionario/funcionarioCadastrar.html" th:href="@{/funcionario/novo}">Cadastrar</a>
           <a class="dropdown-item" href="funcionario/funcionarioBuscar.html" th:href="@{/funcionario/buscar}">Buscar</a>
@@ -84,20 +84,87 @@
     </ul>
     <div id="content-wrapper">
       <div class="container-fluid">
-        <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.html">Dashboard</a>
+            <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">404 Erro</li>
+          <li class="breadcrumb-item active">Funcionarios</li>
         </ol>
-        <!-- Page Content -->
-        <center>
-        <h1 class="display-1">404</h1>
-        <p class="lead">Pagina não encontrada. verifique a URL ou 
-          <a th:href="@{/funcionario/buscar}">Retorne a pagina inicial</a>.</p>
-        </center>
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Funcionarios</div>
+            <div th:if="${message != null}">
+           		<div class="alert alert-success alert-dismissible fade show" role="alert">
+           			<span th:text="${message}">message</span>
+       			 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+					</button>
+           		</div>
+           </div>
+          <div class="card-body">
+          
+            <form th:action="@{/funcionario/salvar}" th:object="${user}" method="post">
+            	<input th:field="*{id}" type="hidden" id="id"/>
+              <div class="form-row">
+              	<input id="id" type="hidden" th:field="*{id}" 	/>
+                <div class="form-group col-md-6">
+                  <label for="username">Login</label>
+                  <input type="text" class="form-control" id="username" name="username" th:field="*{username}" placeholder="Login de usuário"/>
+                  <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+					class="label label-danger invalid-tooltip">
+          			Por favor, escolha um usuário válido e único.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="password">Senha</label>
+                  <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="Senha"/>
+                  <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="label label-danger"></div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="name">Nome</label>
+                  <input type="text" class="form-control" id="name" name="name"  th:field="*{name}" placeholder="Nome">
+                  <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></div>
+                </div> 
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Salario</label>
+                  <input type="text" class="form-control" id="salary" name="salary" th:field="*{salary}"  placeholder="Ex... 998.00" /> 
+                  <div th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="label label-danger"></div>
+                </div> 
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputAddress2">CPF</label>
+                  <input maxlength="14" type="text" class="form-control" id="CPF" name="cpf" th:field="*{cpf}" placeholder="000.000.000-00"/>
+                   <div  th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="alert alert-dark"></div>
+                </div>
+                
+                <div class="form-group col-md-6">
+                  <label for="role">Perfil</label>
+                  <input maxlength="1" type="text" class="form-control" id="roles" name="roles" th:field="*{roles}" placeholder="ADMIN , USER"/>
+                   <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="label label-danger"></div>
+                </div>
+                 
+                 <!-- 
+                <div class="form-group col-md-6">
+                  <label for="roles">Perfil</label>                  
+                  <select th:field="*{roles}" class="form-control" id="roles" >
+                       <option th:text="${roles.name}" th:value="${roles.id}" th:each="roles: ${roles}"  >ADMIN</option>
+                  </select>
+	           	</div>
+	           	-->
+              </div>
+              <button type="submit" class="btn btn-primary">Cadastrar</button>
+              <a href="funcionario/funcionarioCadastrar.html" th:href="@{/funcionario/novo}" class="btn btn-danger">Cancelar</a>
+            </form>
+          </div>
+          <div class="card-footer small text-muted">Atualizado Hoje 03/05</div>
+        </div>
       </div>
+      <!-- /.container-fluid --
+      <!-- Sticky Footer -->
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
@@ -123,14 +190,20 @@
         <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para terminar sua sessão atual.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" th:href="@{login}">Sair</a>
+          <a class="btn btn-primary">Sair</a>
         </div>
       </div>
     </div>
   </div>
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="js/sb-admin.min.js"></script>
+  	<script  src="/vendor/jquery/jquery.min.js"></script>
+  	<script  src="/js/javascript.js"></script>
+	<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+	<script  src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script  src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script  src="/vendor/datatables/jquery.dataTables.js"></script>
+	<script  src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script  src="/js/sb-admin.min.js"></script>
+	<script  src="/js/demo/datatables-demo.js"></script>
 </body>
 </html>

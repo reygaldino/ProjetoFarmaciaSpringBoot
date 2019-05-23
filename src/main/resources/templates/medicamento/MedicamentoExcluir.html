@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
-<html 	xmlns:th="http://thymeleaf.org"  
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		lang="pt-br">
+<html lang="pt-br">
 
 <head>
 
@@ -52,27 +50,27 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Funcionarios</span>
+          <span>Medicamentos</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Medicamentos</h6>
-          <a class="dropdown-item" href="/medicamentoCadastrar">Cadastrar</a>
-          <a class="dropdown-item" href="/medicamentoAlterar">Buscar</a>
-          <a class="dropdown-item" href="/medicamentoAlterar">Alterar</a>
-          <a class="dropdown-item" href="/medicamentoExcluir">Deletar</a>
+          <a class="dropdown-item" href="">Cadastrar</a>
+          <a class="dropdown-item" href="register.html">Buscar</a>
+          <a class="dropdown-item" href="forgot-password.html">Alterar</a>
+          <a class="dropdown-item" href="forgot-password.html">Deletar</a>
         </div>
       </li>
-       <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
           <span>Funcionarios</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Funcionarios</h6>
-          <a class="dropdown-item" th:href="@{/funcionarioCadastrar}">Cadastrar</a>
-          <a class="dropdown-item" th:href="@{/funcionarioBuscar}">Buscar</a>
-          <a class="dropdown-item" th:href="@{/funcionarioAlterar}">Alterar</a>
-          <a class="dropdown-item" th:href="@{/funcionarioExcluir}">Deletar</a>
+          <a class="dropdown-item" href="">Cadastrar</a>
+          <a class="dropdown-item" href="register.html">Buscar</a>
+          <a class="dropdown-item" href="forgot-password.html">Alterar</a>
+          <a class="dropdown-item" href="forgot-password.html">Deletar</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -82,43 +80,36 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Clientes</h6>
-          <a class="dropdown-item" href="/clienteCadastrar">Cadastrar</a>
-          <a class="dropdown-item" href="/clienteAlterar">Buscar</a>
-          <a class="dropdown-item" href="/clienteAlterar">Alterar</a>
-          <a class="dropdown-item" href="/clienteExcluir">Deletar</a>
+          <a class="dropdown-item" href="">Cadastrar</a>
+          <a class="dropdown-item" href="register.html">Buscar</a>
+          <a class="dropdown-item" href="forgot-password.html">Alterar</a>
+          <a class="dropdown-item" href="forgot-password.html">Deletar</a>
         </div>
       </li>
     </ul>
+
     <div id="content-wrapper">
       <div class="container-fluid">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Funcionarios</li>
+          <li class="breadcrumb-item active">Medicamentos</li>
         </ol>
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Funcionarios</div>
-           <div th:if="${message != null}">
-           		<div class="alert alert-success alert-dismissible fade show" role="alert">
-           			<span th:text="${message}">message</span>
-       			 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-  						<span aria-hidden="true">&times;</span>
-					</button>
-           		</div>
-           </div>
+            Medicamentos</div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                     <th>Código</th>
                     <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Username</th>
-                    <th>Salário</th>
+                    <th>Tipo</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
                     <th>Função</th>
                   </tr>
                 </thead>
@@ -126,20 +117,20 @@
                   <tr>
                     <th>Código</th>
                     <th>Nome</th>
-                    <th>CPF</th>
                     <th>Tipo</th>
-                    <th>Salário</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
                     <th>Função</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr th:each="user : ${user}">
-                  	<td th:text="${user.id}"></td>
-                    <td th:text="${user.name}"></td>
-                    <td th:text="${user.cpf}"></td>
-                    <td th:text="${user.username}"></td>
-                    <td th:text="${user.salary}"></td> 
-                    <td><a th:href="@{/excluir/{id}(id=${user.id})}" class="btn btn-danger btn-block">Excluir</a></td>
+                  <tr>
+                    <td>1</td>
+                    <td>Amoxilina</td>
+                    <td>Antibiotico</td>
+                    <td>16.50</td>
+                    <td>51</td>
+                    <td><a href="" class="btn btn-danger btn-block">Excluir</a></td>
                   </tr>
                 </tbody>
               </table>
@@ -174,17 +165,17 @@
         <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para terminar sua sessão atual.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary">Sair</a>
+          <a class="btn btn-primary" href="login.html">Sair</a>
         </div>
       </div>
     </div>
   </div>
-  <script src="vendor/jquery/jquery.min.js"  th:src="@{/vendor/jquery/jquery.min.js}"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"  th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"  th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script src="vendor/datatables/jquery.dataTables.js"  th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"  th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
-  <script src="js/sb-admin.min.js"  th:src="@{/js/sb-admin.min.js}"></script>
-  <script src="js/demo/datatables-demo.js"  th:src="@{/js/demo/datatables-demo.js}"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+  <script src="js/sb-admin.min.js"></script>
+  <script src="js/demo/datatables-demo.js"></script>
 </body>
 </html>

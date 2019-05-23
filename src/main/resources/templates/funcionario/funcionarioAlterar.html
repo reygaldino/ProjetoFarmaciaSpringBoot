@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="utf-8">
@@ -7,9 +7,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Farmacia XYZ</title>
-  <link href="vendor/fontawesome-free/css/all.min.css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-  <link href="vendor/datatables/dataTables.bootstrap4.css" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
-  <link href="css/sb-admin.css" th:href="@{/css/sb-admin.css}" rel="stylesheet"> 
+  <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
+  <link th:href="@{/css/sb-admin.min.css}" rel="stylesheet"> 
 </head>
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -28,7 +28,7 @@
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="visible-xs">
          <form th:action="@{/logout}" method="post">
-             <button type="submit" class="log2 btn btn-default text-white" ><i class="fas fa-sign-out-alt"></i>Sair</button>
+             <button sec:authorize="isAuthenticated()" type="submit" class="log2 btn btn-default text-white" ><i class="fas fa-sign-out-alt"></i>Sair</button>
          </form>
       </li>
     </ul>
@@ -44,7 +44,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-capsules"></i>
           <span>Medicamentos</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -57,7 +57,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-people-carry"></i>
           <span>Funcionarios</span>
         </a>
          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -70,7 +70,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-user-friends"></i>
           <span>Clientes</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -82,22 +82,61 @@
         </div>
       </li>
     </ul>
+
     <div id="content-wrapper">
       <div class="container-fluid">
-        <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.html">Dashboard</a>
+            <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">404 Erro</li>
+          <li class="breadcrumb-item active">Funcionarios</li>
         </ol>
-        <!-- Page Content -->
-        <center>
-        <h1 class="display-1">404</h1>
-        <p class="lead">Pagina não encontrada. verifique a URL ou 
-          <a th:href="@{/funcionario/buscar}">Retorne a pagina inicial</a>.</p>
-        </center>
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-people-carry"></i>
+            Funcionarios</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Tipo</th>
+                    <th>Salário</th>
+                    <th>Função</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Tipo</th>
+                    <th>Salário</th>
+                    <th>Função</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                 <tr th:each="user : ${user}">
+                  	<td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.cpf}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.salary}"></td> 
+                    <td>
+                    <a th:href="@{'/funcionario/alterar/'+ ${user.id}}" href="#" class="btn btn-primary btn-block">Alterar</a>
+                    </td> 
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Atualizado Hoje 03/05</div>
+        </div>
       </div>
+      <!-- Sticky Footer -->
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
@@ -123,14 +162,17 @@
         <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para terminar sua sessão atual.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" th:href="@{login}">Sair</a>
+          <a class="btn btn-primary">Sair</a>
         </div>
       </div>
     </div>
   </div>
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="js/sb-admin.min.js"></script>
+  <script  th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+  <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+  <script   th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script  th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
+  <script   th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
+  <script   th:src="@{/js/sb-admin.min.js}"></script>
+  <script   th:src="@{/js/demo/datatables-demo.js}"></script>
 </body>
 </html>

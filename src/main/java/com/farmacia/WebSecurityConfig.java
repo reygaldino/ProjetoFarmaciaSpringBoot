@@ -1,28 +1,44 @@
 package com.farmacia;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
+    private DataSource dataSource;
+	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{		
+		auth
+			.userDetailsService(userDetailsService)
+			.passwordEncoder(bCryptPasswordEncoder());
 	}
 	
 	@Override
@@ -34,10 +50,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.csrf().disable().authorizeRequests()
-			.antMatchers("/login","/error","/funcionarioCadastrar").permitAll()
-			/*.antMatchers("/funcionarioCadastrar","/funcionarioExcluir","/medicamentoExcluir" ,"/clienteExcluir"
-					).hasRole("ADMIN")*/
+		http
+			.headers()
+			.frameOptions().sameOrigin()
+			.and()
+			.authorizeRequests()
+			.antMatchers("/img/**", "/css/**", "/js/**", "/scss/**", "/vendor/**").permitAll()
+			//.antMatchers("/", "/funcionario/novo","/funcionario/salvar").permitAll()
+			.antMatchers("/funcionario/**").hasRole("ADMIN")
+			.anyRequest().authenticated()
+			.and()
+		.formLogin()
+			.loginPage("/login")
+			.failureUrl("/login?error")
+            .permitAll()
+            .and()
+        .logout()
+        	.permitAll();
+		
+            
+		/*http.csrf().disable().authorizeRequests()
+			.antMatchers("/login","/error","/funcionario/novo").permitAll()
+			.antMatchers("/funcionario/novo").hasAnyRole("5")
+			.antMatchers("/funcionario/novo").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -45,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.logout()
-				.permitAll();
+				.permitAll();*/
 	}
 	
 	@Bean
@@ -53,14 +88,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		 return authenticationManager();
 	}
 	
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-	}
+	PersistentTokenRepository persistentTokenRepository(){
+	     JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+	     tokenRepositoryImpl.setDataSource(dataSource);
+	     return tokenRepositoryImpl;
+	    }
 	
-	public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/index").setViewName("index");
-    }
-
 }
