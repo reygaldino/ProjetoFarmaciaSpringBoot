@@ -125,7 +125,7 @@
                     <td th:text="${user.cpf}"></td>
                     <td th:text="${user.username}"></td>
                     <td th:text="${user.salary}"></td>
-                    <td th:text="${user.roles}"></td>
+                    <td th:each="role: ${user.roles}" th:text="${role.name	}"></td>
                   </tr>
                 </tbody>
               </table>
@@ -165,12 +165,15 @@
       </div>
     </div>
   </div>
-  <script src="vendor/jquery/jquery.min.js"  th:src="@{/vendor/jquery/jquery.min.js}"></script>
-  <script src="vendor/jquery-easing/jquery.easing.min.js"  th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"  th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script src="vendor/datatables/jquery.dataTables.js"  th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"  th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
-  <script src="js/sb-admin.min.js"  th:src="@{/js/sb-admin.min.js}"></script>
-  <script src="js/demo/datatables-demo.js"  th:src="@{/js/demo/datatables-demo.js}"></script>
+  <script  src="/vendor/jquery/jquery.min.js"></script>
+  	<script  src="/js/javascript.js"></script>
+	<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+	<script  src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script  src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script  src="/vendor/datatables/jquery.dataTables.js"></script>
+	<script  src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script  src="/js/sb-admin.min.js"></script>
+	<script  src="/js/demo/datatables-demo.js"></script>
 </body>
 </html>

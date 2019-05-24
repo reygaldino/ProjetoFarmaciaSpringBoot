@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-br">
+<html 	xmlns:th="http://thymeleaf.org"  
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4"
+		lang="pt-br">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,10 +58,11 @@
           <a class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamentoExcluir}">Deletar</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Funcionarios</span>
+          <span >Funcionarios</span>
+          
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Funcionarios</h6>
@@ -140,21 +144,21 @@
                   <input maxlength="14" type="text" class="form-control" id="CPF" name="cpf" th:field="*{cpf}" placeholder="000.000.000-00"/>
                    <div  th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="alert alert-dark"></div>
                 </div>
-                
+                <!-- 
                 <div class="form-group col-md-6">
                   <label for="role">Perfil</label>
                   <input maxlength="1" type="text" class="form-control" id="roles" name="roles" th:field="*{roles}" placeholder="ADMIN , USER"/>
                    <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="label label-danger"></div>
                 </div>
                  
-                 <!-- 
+                 	-->
                 <div class="form-group col-md-6">
                   <label for="roles">Perfil</label>                  
                   <select th:field="*{roles}" class="form-control" id="roles" >
-                       <option th:text="${roles.name}" th:value="${roles.id}" th:each="roles: ${roles}"  >ADMIN</option>
+                       <option th:text="${role.name}" th:value="${role.id}" th:each="role: ${roles}"></option>
                   </select>
 	           	</div>
-	           	-->
+	           
               </div>
               <button type="submit" class="btn btn-primary">Cadastrar</button>
               <a href="funcionario/funcionarioCadastrar.html" th:href="@{/funcionario/novo}" class="btn btn-danger">Cancelar</a>

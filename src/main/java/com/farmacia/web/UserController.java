@@ -1,4 +1,6 @@
 package com.farmacia.web;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.farmacia.model.Role;
 import com.farmacia.model.User;
+import com.farmacia.repository.RoleRepository;
 import com.farmacia.repository.UserRepository;
 import com.farmacia.service.SecurityService;
 import com.farmacia.service.UserService;
@@ -32,6 +36,8 @@ public class UserController {
 	private SecurityService securityService;
 	@Autowired
 	private UserValidator userValidater;
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	// Buscar Funcionarios
 	@GetMapping("/buscar")
@@ -76,9 +82,16 @@ public class UserController {
     }
     
     @GetMapping("/alterar/{id}")
-    public String editar(@PathVariable("id") Long id, Model model) {
+    public String editar(@PathVariable("id") Long id, Model model){
+    	User us = userService.findById(id);
+    	System.out.println(us.getRoles());
     	model.addAttribute("user" , userService.findById(id));
 		return "funcionario/funcionarioCadastrar";
+    }
+    
+    @ModelAttribute("roles")
+    public List<Role> buscarRoles(){
+		return roleRepository.findAll();
     }
 	
 }

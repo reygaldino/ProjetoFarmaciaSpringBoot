@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-br">
+<html 	xmlns:th="http://thymeleaf.org"  
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4"
+		lang="pt-br">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -167,12 +170,15 @@
       </div>
     </div>
   </div>
-  <script  th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
-  <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-  <script   th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script  th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
-  <script   th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
-  <script   th:src="@{/js/sb-admin.min.js}"></script>
-  <script   th:src="@{/js/demo/datatables-demo.js}"></script>
+  <script  src="/vendor/jquery/jquery.min.js"></script>
+  	<script  src="/js/javascript.js"></script>
+	<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+	<script  src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script  src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script  src="/vendor/datatables/jquery.dataTables.js"></script>
+	<script  src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+	<script  src="/js/sb-admin.min.js"></script>
+	<script  src="/js/demo/datatables-demo.js"></script>
 </body>
 </html>

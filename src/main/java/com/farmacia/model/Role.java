@@ -45,9 +45,14 @@ public class Role {
 		this.users = users;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return this.name;
+		final int maxLen = 10;
+		return "Role [id=" + id + ", name=" + name + ", users="
+				+ (users != null ? users.subList(0, Math.min(users.size(), maxLen)) : null) + "]";
 	}
 
 	@Override
@@ -74,5 +79,7 @@ public class Role {
 			return false;
 		return true;
 	}	
+	
+	
 	
 }

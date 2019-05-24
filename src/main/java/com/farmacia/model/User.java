@@ -120,5 +120,17 @@ public class User {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		final int maxLen = 10;
+		return "User [id=" + id + ", cpf=" + cpf + ", username=" + username + ", password=" + password + ", salary="
+				+ salary + ", name=" + name + ", roles="
+				+ (roles != null ? roles.subList(0, Math.min(roles.size(), maxLen)) : null) + "]";
 	}	
+	
 }
