@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html   xmlns:th="http://thymeleaf.org"  
+<html   xmlns:th="http://thymeleaf.org" 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     lang="pt-br">
@@ -13,6 +13,9 @@
   <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
   <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
   <link th:href="@{/css/sb-admin.min.css}" rel="stylesheet"> 
+  <style type="text/css">
+    .label { color: red; }
+  </style>
 </head>
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -56,10 +59,10 @@
           <a class="dropdown-item" href="medicamentoCadastrar.html" th:href="@{/medicamento/novo}">Cadastrar</a>
           <a class="dropdown-item" href="medicamentoBuscar.html" th:href="@{/medicamento/buscar}">Buscar</a>
           <a class="dropdown-item" href="medicamentoAlterar.html" th:href="@{/medicamento/alterar}">Alterar</a>
-          <a class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamento/excluir}">Deletar</a>
+          <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamento/excluir}">Deletar</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-people-carry"></i>
           <span>Funcionarios</span>
@@ -82,7 +85,7 @@
           <a class="dropdown-item" href="clienteCadastrar.html" th:href="@{/cliente/novo}">Cadastrar</a>
           <a class="dropdown-item" href="clienteBuscar.html" th:href="@{/cliente/buscar}">Buscar</a>
           <a class="dropdown-item" href="clienteAlterar.html" th:href="@{/cliente/alterar}">Alterar</a>
-          <a class="dropdown-item" href="clienteExcluir.html" th:href="@{/cliente/excluir}">Deletar</a>
+          <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="clienteExcluir.html" th:href="@{/cliente/excluir}">Deletar</a>
         </div>
       </li>
     </ul>
@@ -114,32 +117,32 @@
                 <div class="form-group col-md-6">
                   <label for="username">Login</label>
                   <input maxlength="12" type="text" class="form-control" id="username" name="username" th:field="*{username}" placeholder="Login de usuário" />
-                  <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                  <div class="label" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
                   </div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="password">Senha</label>
                   <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="Senha"/>
-                  <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="label label-danger"></div>
+                  <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="label"></div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="name">Nome</label>
                   <input type="text" class="form-control" id="name" name="name"  th:field="*{name}" placeholder="Nome">
-                  <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></div>
+                  <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label" ></div>
                 </div> 
                 <div class="form-group col-md-6">
                   <label for="inputCity">Salario</label>
                   <input type="text" class="form-control" id="salary" name="salary" th:field="*{salary}"  placeholder="Ex.. 998.00" /> 
-                  <div th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="label label-danger"></div>
+                  <div th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="label"></div>
                 </div> 
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputAddress2">CPF</label>
                   <input maxlength="14" type="text" class="form-control" id="CPF" name="cpf" th:field="*{cpf}" placeholder="000.000.000-00"/>
-                   <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="label label-danger"></div>
+                   <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="label"></div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="roles">Perfil</label>                  

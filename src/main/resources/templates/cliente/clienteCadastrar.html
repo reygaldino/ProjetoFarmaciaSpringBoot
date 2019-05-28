@@ -13,6 +13,9 @@
   <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
   <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
   <link th:href="@{/css/sb-admin.min.css}" rel="stylesheet"> 
+  <style type="text/css">
+    .label { color: red; }
+  </style>
 </head>
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -43,7 +46,6 @@
          <a class="nav-link" href="index.html" th:href="@{/index}">
           <i class="fas fa-user-shield"></i>
           <span sec:authentication="name">Dashboard</span>
-          <div sec:authorize="isAuthenticated()"></div>
         </a>
       </li>
       <li class="nav-item dropdown">
@@ -56,10 +58,10 @@
           <a class="dropdown-item" href="medicamentoCadastrar.html" th:href="@{/medicamento/novo}">Cadastrar</a>
           <a class="dropdown-item" href="medicamentoBuscar.html" th:href="@{/medicamento/buscar}">Buscar</a>
           <a class="dropdown-item" href="medicamentoAlterar.html" th:href="@{/medicamento/alterar}">Alterar</a>
-          <a class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamento/excluir}">Deletar</a>
+          <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamento/excluir}">Deletar</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-people-carry"></i>
           <span>Funcionarios</span>
@@ -82,7 +84,7 @@
           <a class="dropdown-item" href="clienteCadastrar.html" th:href="@{/cliente/novo}">Cadastrar</a>
           <a class="dropdown-item" href="clienteBuscar.html" th:href="@{/cliente/buscar}">Buscar</a>
           <a class="dropdown-item" href="clienteAlterar.html" th:href="@{/cliente/alterar}">Alterar</a>
-          <a class="dropdown-item" href="clienteExcluir.html" th:href="@{/cliente/excluir}">Deletar</a>
+          <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="clienteExcluir.html" th:href="@{/cliente/excluir}">Deletar</a>
         </div>
       </li>
     </ul>
@@ -106,24 +108,24 @@
                 <div class="form-group col-md-6">
                   <label for="name">Nome</label>
                   <input type="text" value="" name="name" class="form-control" id="name"  th:field="*{name}" placeholder="Nome Cliente">
-                   <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label label-danger"></div>
+                   <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label"></div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="cpf">CPF</label>
                   <input type="text" value="" name="cpf"  class="form-control" id="cpf" th:field="*{cpf}" placeholder="000.000.000-00">
-                   <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="label label-danger"></div>
+                   <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="label"></div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="telephone">Telefone</label>
                    <input maxlength="12" type="text" name="telephone"  class="form-control" id="telephone" th:field="*{telephone}" placeholder="(00)00000-0000">
-                    <div th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" class="label label-danger"></div>
+                    <div th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" class="label"></div>
                 </div> 
                 <div class="form-group col-md-6">
                   <label for="rg">RG</label>
                   <input type="text" value="" name="rg"  class="form-control" id="rg" th:field="*{rg}" placeholder="000000" >
-                  <div th:if="${#fields.hasErrors('rg')}" th:errors="*{rg}" class="label label-danger"></div> 
+                  <div th:if="${#fields.hasErrors('rg')}" th:errors="*{rg}" class="label"></div> 
                 </div> 
               </div>
               <button type="submit" class="btn btn-primary">Cadastrar</button>

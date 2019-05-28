@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "medication")
@@ -19,10 +22,20 @@ public class Medication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull(message = "O campo deve ser preenchido")
+	@Size(min = 4, max = 20, message = "O Nome deve ter no minimo 4 caracteres e no maximo 20")
+	@NotEmpty(message = "O campo deve ser preenchido")
 	private String name;
+	@NotEmpty(message = "O campo deve ser preenchido")
 	private String price;
 	private int quantity;
+	@NotNull(message = "O campo deve ser preenchido")
+	@Size(min = 10, max = 10, message = "A data deve ter o formato 00/00/0000")
+	@NotEmpty(message = "O campo deve ser preenchido")
 	private String dataFab;
+	@NotNull(message = "O campo deve ser preenchido")
+	@Size(min = 10, max = 10, message = "A data deve ter o formato 00/00/0000")
+	@NotEmpty(message = "O campo deve ser preenchido")
 	private String dataVenc;
 	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(name = "medication_type_medication",

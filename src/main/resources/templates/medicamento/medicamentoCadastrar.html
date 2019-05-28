@@ -13,6 +13,9 @@
   <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
   <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
   <link th:href="@{/css/sb-admin.min.css}" rel="stylesheet"> 
+  <style type="text/css">
+    .label { color: red; }
+  </style>
 </head>
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -56,10 +59,10 @@
           <a class="dropdown-item" href="medicamentoCadastrar.html" th:href="@{/medicamento/novo}">Cadastrar</a>
           <a class="dropdown-item" href="medicamentoBuscar.html" th:href="@{/medicamento/buscar}">Buscar</a>
           <a class="dropdown-item" href="medicamentoAlterar.html" th:href="@{/medicamento/alterar}">Alterar</a>
-          <a class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamento/excluir}">Deletar</a>
+          <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamento/excluir}">Deletar</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-people-carry"></i>
           <span>Funcionarios</span>
@@ -82,7 +85,7 @@
           <a class="dropdown-item" href="clienteCadastrar.html" th:href="@{/cliente/novo}">Cadastrar</a>
           <a class="dropdown-item" href="clienteBuscar.html" th:href="@{/cliente/buscar}">Buscar</a>
           <a class="dropdown-item" href="clienteAlterar.html" th:href="@{/cliente/alterar}">Alterar</a>
-          <a class="dropdown-item" href="clienteExcluir.html" th:href="@{/cliente/excluir}">Deletar</a>
+          <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="clienteExcluir.html" th:href="@{/cliente/excluir}">Deletar</a>
         </div>
       </li>
     </ul>
@@ -99,14 +102,22 @@
           <div class="card-header">
             <i class="fas fa-capsules"></i>
             Medicamentos</div>
+            <div th:if="${message != null}">
+           		<div class="alert alert-success alert-dismissible fade show" role="alert">
+           			<span th:text="${message}">message</span>
+       			 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+					</button>
+           		</div>
+           </div>
           <div class="card-body">
            <form th:action="@{/medicamento/salvar}" th:object="${medication}" method="post">
            	<input th:field="*{id}" type="hidden" id="id"/>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="name">Nome do Medicamento</label>
-                  <input type="text" class="form-control" id="name" name="name" 
-                   th:field="*{name}" placeholder="Nome do Medicamento">
+                  <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Nome do Medicamento">
+                  <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="label"></div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="typeMedication">Tipo</label>                  
@@ -119,20 +130,24 @@
                 <div class="form-group col-md-6">
                   <label for="price">Preço</label>
                   <input type="text" class="form-control" id="PRICE" name="price" th:field="*{price}" placeholder="R$ 000,00">
+                  <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="label"></div>
                 </div> 
                 <div class="form-group col-md-6">
                   <label for="quantity">Quantidade</label>
                   <input type="text" class="form-control" id="quantity" name="quantity" th:field="*{quantity}" placeholder="1,2,3,4..." > 
+                  <div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="label"></div>
                 </div> 
               </div>
               <div class="form-row"> 
                 <div class="form-group col-md-6">
                   <label for="dataFab">Data de fabricação</label>
                   <input type="text" class="form-control" id="dataFab" name="dataFab" th:field="*{dataFab}" placeholder="00/00/0000" > 
+                  <div th:if="${#fields.hasErrors('dataFab')}" th:errors="*{dataFab}" class="label"></div>
                 </div> 
                 <div class="form-group col-md-6">
                   <label for="dataVenc">Data de vencimento</label>
                   <input type="text" class="form-control" id="dataVenc" name="dataVenc" th:field="*{dataVenc}" placeholder="00/00/0000" > 
+                  <div th:if="${#fields.hasErrors('dataVenc')}" th:errors="*{dataVenc}" class="label"></div> 
                 </div>
               </div>
               <button type="submit" class="btn btn-primary">Cadastrar</button>
@@ -175,7 +190,7 @@
     </div>
   </div>
   <script  src="/vendor/jquery/jquery.min.js"></script>
-    <script  src="/js/javascript.js"></script>
+  <script  src="/js/javascript.js"></script>
   <script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
   <script  src="/vendor/jquery-easing/jquery.easing.min.js"></script>

@@ -46,7 +46,7 @@ public class MedicationController {
 		if (result.hasErrors()) {
 			return "medicamento/medicamentoCadastrar";
 		}
-		medicationRepository.save(medication);
+		medicationService.save(medication);
 		attr.addAttribute("message", "Medicamento salvo com sucesso.");
 		return "redirect:/medicamento/novo";
 	}
