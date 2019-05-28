@@ -6,6 +6,10 @@ body {
     margin-top: 10px;
 }
 
+.feedback{
+    text-align: red;
+}
+
 .validation-ssummary-errors ul{
     padding: 0;
 }

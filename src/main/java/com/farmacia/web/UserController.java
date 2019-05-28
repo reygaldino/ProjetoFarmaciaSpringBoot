@@ -20,9 +20,8 @@ import com.farmacia.model.Role;
 import com.farmacia.model.User;
 import com.farmacia.repository.RoleRepository;
 import com.farmacia.repository.UserRepository;
-import com.farmacia.service.SecurityService;
 import com.farmacia.service.UserService;
-import com.farmacia.validator.UserValidator;
+
 
 @Controller
 @RequestMapping("/funcionario")
@@ -32,10 +31,6 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private SecurityService securityService;
-	@Autowired
-	private UserValidator userValidater;
 	@Autowired
 	private RoleRepository roleRepository;
 	
@@ -83,8 +78,6 @@ public class UserController {
     
     @GetMapping("/alterar/{id}")
     public String editar(@PathVariable("id") Long id, Model model){
-    	User us = userService.findById(id);
-    	System.out.println(us.getRoles());
     	model.addAttribute("user" , userService.findById(id));
 		return "funcionario/funcionarioCadastrar";
     }

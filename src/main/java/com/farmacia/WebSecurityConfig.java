@@ -16,9 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 
 @Configuration
@@ -53,29 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception{
-		/*http
-			.headers()
-			.frameOptions().sameOrigin()
-			.and()
-			.authorizeRequests()
-			.antMatchers("/img/**", "/css/**", "/js/**", "/scss/**", "/vendor/**").permitAll()
-			.antMatchers("/login").permitAll()
-			.antMatchers("/funcionario/alterar").hasAnyRole("ADMIN")
-			.anyRequest().authenticated()
-			.and()
-		.formLogin()
-			.loginPage("/login")
-			.failureUrl("/login?error")
-            .permitAll()
-            .and()
-        .logout()
-        	.permitAll();*/
-		
-            
+	protected void configure(HttpSecurity http) throws Exception{            
 		http.csrf().disable().authorizeRequests()
 			.antMatchers("/login","/error").permitAll()
-			.antMatchers("/funcionario/novo").hasAnyRole("ADMIN")
+			.antMatchers("/funcionario/**").hasAnyRole("ADMIN")
+			.antMatchers("/medicamento/excluir").hasAnyRole("ADMIN")
+			.antMatchers("/cliente/excluir").hasAnyRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()

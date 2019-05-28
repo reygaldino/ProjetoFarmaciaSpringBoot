@@ -7,14 +7,41 @@ $(document).ready(function () {
 
 $(document).ready(function () { 
     var $seuCampoSalary = $("#salary");
-    $seuCampoSalary.mask('0.000.00', 
+    $seuCampoSalary.mask('0.000,00', 
     {reverse: true});
     
 });
 
-token = request.POST["h-captcha-response"]
-params = { 
-   "secret": "0xf13d42C4B74E2c07F22E80D90c1630C3fcb4f453",
-   "response": token
-}
-json = http.POST("https://hcaptcha.com/siteverify", params)
+$(document).ready(function () { 
+    var $seuCampoPrice = $("#PRICE");
+    $seuCampoPrice.mask('000,00', 
+    {reverse: true});
+    
+});
+
+$(document).ready(function () { 
+    var $seuCampoRg = $("#rg");
+    $seuCampoRg.mask('0.000-000', 
+    {reverse: true});
+    
+});
+
+$(document).ready(function () { 
+    var $seuCampoDataF = $("#dataFab");
+    $seuCampoDataF.mask('00/00/0000', {reverse: true});
+});
+
+$(document).ready(function () { 
+    var $seuCampoDataV = $("#dataVenc");
+    $seuCampoDataV.mask('00/00/0000', {reverse: true});
+});
+
+$(document).ready(function () { 
+    var $seuCampoQuant = $("#dataVenc");
+    $seuCampoQuant.mask('00/00/0000', {reverse: true});
+});
+
+$(document).ready(function () { 
+    var $seuCampoTel = $("#telephone");
+    $seuCampoTel.mask("(99) 99999-9999");
+});

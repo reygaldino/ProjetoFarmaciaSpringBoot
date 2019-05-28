@@ -1,22 +1,22 @@
 ﻿<!DOCTYPE html>
-<html 	xmlns:th="http://thymeleaf.org"  
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4"
-		lang="pt-br">
+<html   xmlns:th="http://thymeleaf.org"  
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    lang="pt-br">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="Projeto Farmacia" content="">
-  <meta name="Renato Galdino" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
   <title>Farmacia XYZ</title>
-  <link href="vendor/fontawesome-free/css/all.min.css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-  <link href="vendor/datatables/dataTables.bootstrap4.css" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
-  <link href="css/sb-admin.css" th:href="@{/css/sb-admin.css}" rel="stylesheet"> 
+  <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
+  <link th:href="@{/css/sb-admin.min.css}" rel="stylesheet"> 
 </head>
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand mr-1" href="index.html" th:href="@{/index}">Farmacia XYZ</a>
+    <a class="navbar-brand mr-1" th:href="@{/index}">Farmacia XYZ</a>
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" >
       <i class="fas fa-bars"></i>
     </button>
@@ -31,7 +31,7 @@
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="visible-xs">
          <form th:action="@{/logout}" method="post">
-             <button type="submit" class="log2 btn btn-default text-white" ><i class="fas fa-sign-out-alt"></i>Sair</button>
+             <button sec:authorize="isAuthenticated()" type="submit" class="log2 btn btn-default text-white" ><i class="fas fa-sign-out-alt"></i>Sair</button>
          </form>
       </li>
     </ul>
@@ -40,31 +40,31 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+        <a class="nav-link" href="index.html" th:href="@{/index}">
+          <i class="fas fa-user-shield"></i>
+          <span sec:authentication="name">Dashboard</span>
+          <div sec:authorize="isAuthenticated()"></div>
         </a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-capsules"></i>
           <span>Medicamentos</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Medicamentos</h6>
-          <a class="dropdown-item" href="medicamentoCadastrar.html" th:href="@{/medicamentoCadastrar}">Cadastrar</a>
-          <a class="dropdown-item" href="medicamentoBuscar.html" th:href="@{/medicamentoBuscar}">Buscar</a>
-          <a class="dropdown-item" href="medicamentoAlterar.html" th:href="@{/medicamentoAlterar}">Alterar</a>
-          <a class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamentoExcluir}">Deletar</a>
+          <a class="dropdown-item" href="medicamentoCadastrar.html" th:href="@{/medicamento/novo}">Cadastrar</a>
+          <a class="dropdown-item" href="medicamentoBuscar.html" th:href="@{/medicamento/buscar}">Buscar</a>
+          <a class="dropdown-item" href="medicamentoAlterar.html" th:href="@{/medicamento/alterar}">Alterar</a>
+          <a class="dropdown-item" href="medicamentoExcluir.html" th:href="@{/medicamento/excluir}">Deletar</a>
         </div>
       </li>
-      <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
-          <span >Funcionarios</span>
-          
+          <i class="fas fa-people-carry"></i>
+          <span>Funcionarios</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Funcionarios</h6>
           <a class="dropdown-item" href="funcionario/funcionarioCadastrar.html" th:href="@{/funcionario/novo}">Cadastrar</a>
           <a class="dropdown-item" href="funcionario/funcionarioBuscar.html" th:href="@{/funcionario/buscar}">Buscar</a>
@@ -74,15 +74,15 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
+          <i class="fas fa-fw fa-user-friends"></i>
           <span>Clientes</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Menu Clientes</h6>
-          <a class="dropdown-item" href="clienteCadastrar.html" th:href="@{/clienteCadastrar}">Cadastrar</a>
-          <a class="dropdown-item" href="clienteBuscar.html" th:href="@{/clienteBuscar}">Buscar</a>
-          <a class="dropdown-item" href="clienteAlterar.html" th:href="@{/clienteAlterar}">Alterar</a>
-          <a class="dropdown-item" href="clienteExcluir.html" th:href="@{/clienteExcluir}">Deletar</a>
+          <a class="dropdown-item" href="clienteCadastrar.html" th:href="@{/cliente/novo}">Cadastrar</a>
+          <a class="dropdown-item" href="clienteBuscar.html" th:href="@{/cliente/buscar}">Buscar</a>
+          <a class="dropdown-item" href="clienteAlterar.html" th:href="@{/cliente/alterar}">Alterar</a>
+          <a class="dropdown-item" href="clienteExcluir.html" th:href="@{/cliente/excluir}">Deletar</a>
         </div>
       </li>
     </ul>
@@ -96,7 +96,7 @@
         </ol>
         <div class="card mb-3">
           <div class="card-header">
-            <i class="fas fa-table"></i>
+            <i class="fas fa-people-carry"></i>
             Funcionarios</div>
             <div th:if="${message != null}">
            		<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -107,17 +107,14 @@
            		</div>
            </div>
           <div class="card-body">
-          
             <form th:action="@{/funcionario/salvar}" th:object="${user}" method="post">
             	<input th:field="*{id}" type="hidden" id="id"/>
               <div class="form-row">
               	<input id="id" type="hidden" th:field="*{id}" 	/>
                 <div class="form-group col-md-6">
                   <label for="username">Login</label>
-                  <input type="text" class="form-control" id="username" name="username" th:field="*{username}" placeholder="Login de usuário"/>
-                  <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-					class="label label-danger invalid-tooltip">
-          			Por favor, escolha um usuário válido e único.
+                  <input maxlength="12" type="text" class="form-control" id="username" name="username" th:field="*{username}" placeholder="Login de usuário" />
+                  <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
                   </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -134,7 +131,7 @@
                 </div> 
                 <div class="form-group col-md-6">
                   <label for="inputCity">Salario</label>
-                  <input type="text" class="form-control" id="salary" name="salary" th:field="*{salary}"  placeholder="Ex... 998.00" /> 
+                  <input type="text" class="form-control" id="salary" name="salary" th:field="*{salary}"  placeholder="Ex.. 998.00" /> 
                   <div th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="label label-danger"></div>
                 </div> 
               </div>
@@ -142,23 +139,14 @@
                 <div class="form-group col-md-6">
                   <label for="inputAddress2">CPF</label>
                   <input maxlength="14" type="text" class="form-control" id="CPF" name="cpf" th:field="*{cpf}" placeholder="000.000.000-00"/>
-                   <div  th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="alert alert-dark"></div>
+                   <div th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="label label-danger"></div>
                 </div>
-                <!-- 
-                <div class="form-group col-md-6">
-                  <label for="role">Perfil</label>
-                  <input maxlength="1" type="text" class="form-control" id="roles" name="roles" th:field="*{roles}" placeholder="ADMIN , USER"/>
-                   <div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="label label-danger"></div>
-                </div>
-                 
-                 	-->
                 <div class="form-group col-md-6">
                   <label for="roles">Perfil</label>                  
                   <select th:field="*{roles}" class="form-control" id="roles" >
                        <option th:text="${role.name}" th:value="${role.id}" th:each="role: ${roles}"></option>
                   </select>
 	           	</div>
-	           
               </div>
               <button type="submit" class="btn btn-primary">Cadastrar</button>
               <a href="funcionario/funcionarioCadastrar.html" th:href="@{/funcionario/novo}" class="btn btn-danger">Cancelar</a>
@@ -199,15 +187,17 @@
       </div>
     </div>
   </div>
-  	<script  src="/vendor/jquery/jquery.min.js"></script>
-  	<script  src="/js/javascript.js"></script>
-	<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-	<script  src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-	<script  src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script  src="/vendor/datatables/jquery.dataTables.js"></script>
-	<script  src="/vendor/datatables/dataTables.bootstrap4.js"></script>
-	<script  src="/js/sb-admin.min.js"></script>
-	<script  src="/js/demo/datatables-demo.js"></script>
+  <script  src="/vendor/jquery/jquery.min.js"></script>
+    <script  src="/js/javascript.js"></script>
+  <script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+  <script  src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script  src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script  src="/vendor/datatables/jquery.dataTables.js"></script>
+  <script  src="/vendor/datatables/dataTables.bootstrap4.js"></script>
+  <script  src="/js/sb-admin.min.js"></script>
+  <script  src="/js/demo/datatables-demo.js"></script>
 </body>
 </html>
+
+      

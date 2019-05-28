@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,19 +23,28 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@NotNull(message = "O campo deve ser preenchido")
-	@Size(message = "O cpf deve ser preenchido")
+	@NotEmpty(message = "O campo deve ser preenchido")
 	private String cpf;
+	
 	@NotNull(message = "O campo deve ser preenchido")
 	@Size(min = 3, max = 12, message = "O login deve ter no minimo 3 caracteres e no maximo 12")
+	@NotEmpty(message = "O campo deve ser preenchido")
 	private String username;
+	
 	@NotNull(message = "O campo deve ser preenchido")
 	private String password;
+	
 	@NotNull(message = "O campo deve ser preenchido")
-	private Double salary;
+	@NotEmpty(message = "O campo deve ser preenchido")
+	private String salary;
+	
 	@NotNull(message = "O campo deve ser preenchido")
-	@Size(min = 3, max = 60, message = "O nome deve ter no minimo 3 caracter e no maximo 60 ")
+	@Size(min = 3, max = 60, message = "O nome deve ter no minimo 3 caracteres e no maximo 60 ")
+	@NotEmpty(message = "O campo deve ser preenchido")
 	private String name;
+	
 	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(name = "user_roles",
 		joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
@@ -73,11 +83,11 @@ public class User {
 		this.password = password;
 	}
 	
-	public Double getSalary() {
+	public String getSalary() {
 		return salary;
 	}
 	
-	public void setSalary(Double salary) {
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
 	
@@ -121,16 +131,5 @@ public class User {
 			return false;
 		return true;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		final int maxLen = 10;
-		return "User [id=" + id + ", cpf=" + cpf + ", username=" + username + ", password=" + password + ", salary="
-				+ salary + ", name=" + name + ", roles="
-				+ (roles != null ? roles.subList(0, Math.min(roles.size(), maxLen)) : null) + "]";
-	}	
 	
 }

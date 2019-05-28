@@ -10,16 +10,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "typeMedication")
+public class TypeMedication {
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
 	
-	@ManyToMany(mappedBy = "roles")
-	private List<User> users;
+	@ManyToMany(mappedBy = "typeMedication")
+	private List<Medication> medication;
 	
 	public Long getId() {
 		return id;
@@ -28,29 +29,22 @@ public class Role {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public List<User> getUsers() {
-		return users;
-	}
-	
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-	@Override
-	public String toString() {
-		final int maxLen = 10;
-		return "Role [id=" + id + ", name=" + name + ", users="
-				+ (users != null ? users.subList(0, Math.min(users.size(), maxLen)) : null) + "]";
+
+	public List<Medication> getMedication() {
+		return medication;
 	}
 
+	public void setMedication(List<Medication> medication) {
+		this.medication = medication;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,15 +61,13 @@ public class Role {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
+		TypeMedication other = (TypeMedication) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-	
-	
+	}
 	
 }
