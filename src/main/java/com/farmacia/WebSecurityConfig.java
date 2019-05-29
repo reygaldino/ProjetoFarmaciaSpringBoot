@@ -76,13 +76,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	     JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
 	     tokenRepositoryImpl.setDataSource(dataSource);
 	     return tokenRepositoryImpl;
-	    }
-	
-	/*@Bean
-	public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
-	    final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-	    templateEngine.addDialect(new SpringSecurityDialect());
-        templateEngine.setTemplateResolver(templateResolver);
-	    return templateEngine;
-	}*/
+	 }
 }
