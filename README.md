@@ -32,5 +32,5 @@ CRUD de Funcionarios, Medicamentos, Clientes.
 Regras:
 Perfil de Admin gerencia toda a parte do sistema.
 
-User ver funcionarios e nenhuma funcionalidade, não pode excluir usuario ou medicamentos
+User não tem acesso a funcionarios e nenhuma funcionalidade de funcionario, não pode excluir usuario ou medicamentos
 User faz cadastro de medicamento e clientes, consulta medicamentos e clientes e altera clientes e medicamentos
